@@ -1,36 +1,23 @@
-#最頻値 (Mode)
+#勇者ビ太郎(Bitaro the Brave)
 
 def main():
     h, w = map(int, input().split())
-    mp = [input() for _ in range(h)]
-    
-    i_cnt = [[0] * w for _ in range(h)]
-    o_cnt = [[0] * w for _ in range(h)]
-    
-    for x in range(w):
-        if mp[h - 1][x] == "I":
-            i_cnt[h - 1][x] = 1
-    
-    for y in range(h):
-        if mp[y][w - 1] == "O":
-            o_cnt[y][w - 1] = 1
-    
+    mp = [list(input()) for _ in range(h)]
     ans = 0
-    for y in range(h - 2, -1, -1):
-        for x in range(w - 2, -1, -1):
-            if mp[y][x] == "I":
-                i_cnt[y][x] = i_cnt[y + 1][x] + 1
-                o_cnt[y][x] = o_cnt[y][x + 1]
-            elif mp[y][x] == "O":
-                i_cnt[y][x] = i_cnt[y + 1][x]
-                o_cnt[y][x] = o_cnt[y][x + 1] + 1
-            else:
-                i_cnt[y][x] = i_cnt[y + 1][x]
-                o_cnt[y][x] = o_cnt[y][x + 1]
-                ans += i_cnt[y][x] * o_cnt[y][x]
-    
-    print(ans)
+    ci = [0 for _ in range(w)]
 
+    for i in range(h-1, -1, -1):
+        co = 0
+        for j in range(w-1, -1, -1):
+            if mp[i][j] == 'J': #i,j
+                ans += co * ci[j]
+            elif mp[i][j] == 'O': #i,l
+                co += 1
+                
+            elif mp[i][j] == 'I': #k,j
+                ci[j] += 1
+            
+    print(ans)
 
 if __name__ == '__main__':
     main()
