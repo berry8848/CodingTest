@@ -14,6 +14,7 @@ def main():
             elif mp[i][j] == 'O': #i,l
                 co += 1
                 
+                
             elif mp[i][j] == 'I': #k,j
                 ci[j] += 1
             
